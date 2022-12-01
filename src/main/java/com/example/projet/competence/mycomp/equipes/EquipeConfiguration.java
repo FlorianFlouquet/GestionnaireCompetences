@@ -1,8 +1,6 @@
 package com.example.projet.competence.mycomp.equipes;
 
-import com.example.projet.competence.mycomp.personnes.PersonneRepository;
 import com.example.projet.competence.mycomp.personnes.PersonneService;
-import com.example.projet.competence.mycomp.personnes.PersonneServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class EquipeConfiguration {
 
     @Bean
-    public EquipeService equipeService(EquipeRepository equipeRepository) {
-        return new EquipeServiceImpl(equipeRepository);
+    public EquipeService equipeService(EquipeRepository equipeRepository, PersonneService personneService) {
+        return new EquipeServiceImpl(equipeRepository, personneService);
     }
 }
