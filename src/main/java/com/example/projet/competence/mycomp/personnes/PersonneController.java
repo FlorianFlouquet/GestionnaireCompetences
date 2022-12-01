@@ -33,4 +33,9 @@ public class PersonneController {
     public void deleteById(@PathVariable String id) {
         personneService.deleteById(id);
     }
+
+    @PutMapping("{personId}/competences/{competenceId}")
+    public Personne ajouterCompetence(@PathVariable String personId, @PathVariable String competenceId, @RequestParam Integer niveau) {
+        return personneService.ajouterCompetence(personId, competenceId, niveau);
+    }
 }

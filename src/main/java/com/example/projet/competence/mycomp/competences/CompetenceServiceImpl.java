@@ -12,7 +12,7 @@ public class CompetenceServiceImpl implements CompetenceService {
 
 
     public CompetenceServiceImpl(CompetenceRepository competenceRepository) {
-        this.competenceRepository = CompetenceServiceImpl.this.competenceRepository;
+        this.competenceRepository = competenceRepository;
     }
 
     @Override

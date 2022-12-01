@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +18,5 @@ public class Personne {
     private String id;
     private String nom;
     private String prenom;
+    private List<NiveauCompetence> competences = new ArrayList<>();
 }
