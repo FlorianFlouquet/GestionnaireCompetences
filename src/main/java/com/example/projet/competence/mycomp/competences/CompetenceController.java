@@ -5,9 +5,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/personnes")
+@RequestMapping("/competences")
 public class CompetenceController {
-    private CompetenceService competenceService;
+    private final CompetenceService competenceService;
+
+    public CompetenceController(CompetenceService competenceService) {
+        this.competenceService = competenceService;
+    }
 
     @GetMapping("")
     public List<Competence> findAll() {

@@ -8,7 +8,11 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/personnes")
 public class PersonneController {
-    private PersonneService personneService;
+    private final PersonneService personneService;
+
+    public PersonneController(PersonneService personneService) {
+        this.personneService = personneService;
+    }
 
     @GetMapping("")
     public List<Personne> findAll() {

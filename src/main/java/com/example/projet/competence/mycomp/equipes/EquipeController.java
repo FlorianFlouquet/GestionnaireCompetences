@@ -6,9 +6,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/personnes")
+@RequestMapping("/equipes")
 public class EquipeController {
-    private EquipeService equipeService;
+    private final EquipeService equipeService;
+
+    public EquipeController(EquipeService equipeService) {
+        this.equipeService = equipeService;
+    }
 
     @GetMapping("")
     public List<Equipe> findAll() {
