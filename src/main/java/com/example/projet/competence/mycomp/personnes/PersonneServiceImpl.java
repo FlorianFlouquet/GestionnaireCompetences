@@ -39,21 +39,41 @@ public class PersonneServiceImpl implements PersonneService {
         personneRepository.deleteById(id);
     }
 
+    /**
+     * Dans le cas où la compétence existe déjà dans le membre, modifie son niveau.
+     * Sinon ajoute la compétence.
+     * * @param personneId
+     * @param competenceId
+     * @param niveau
+     * @return
+     */
     @Override
-    public Personne ajouterCompetence(String personneId, String competenceId, Integer niveau) {
+    public Personne ajouterOuModifierCompetence(String personneId, String competenceId, Integer niveau) {
         Personne membre = this.findById(personneId);
-        Competence competence = this.competenceService.findById(competenceId);
         List<NiveauCompetence> listeNiveauCompetence = membre.getCompetences();
-        NiveauCompetence nouveauNiveauCompetence = new NiveauCompetence();
-        for(NiveauCompetence niveauCompetence : listeNiveauCompetence) {
-            if(niveauCompetence.getCompetence().getId().equals(competenceId)) {
-                nouveauNiveauCompetence.setCompetence(competence);
-                nouveauNiveauCompetence.setNiveau(niveau);
+        if(membre.getCompetences().stream().noneMatch(niveauCompetence -> niveauCompetence.getCompetence().getId().equals(competenceId))) {
+            NiveauCompetence niveauCompetence = new NiveauCompetence(this.competenceService.findById(competenceId), niveau);
+            membre.getCompetences().add(niveauCompetence);
+        } else {
+            for(NiveauCompetence niveauCompetence: listeNiveauCompetence) {
+                if(niveauCompetence.getCompetence().getId().equals(competenceId)) {
+                    niveauCompetence.setNiveau(niveau);
+                }
             }
         }
-        membre.getCompetences().add(nouveauNiveauCompetence);
         return this.save(membre);
+
+
+
+//        List<NiveauCompetence> listeNiveauCompetence = membre.getCompetences();
+//        NiveauCompetence nouveauNiveauCompetence = new NiveauCompetence();
+//        for(NiveauCompetence niveauCompetence : listeNiveauCompetence) {
+//            if(niveauCompetence.getCompetence().getId().equals(competenceId)) {
+//                nouveauNiveauCompetence.setCompetence(competence);
+//                nouveauNiveauCompetence.setNiveau(niveau);
+//            }
+//        }
+//        membre.getCompetences().add(nouveauNiveauCompetence);
+//        return this.save(membre);
     }
-
-
 }

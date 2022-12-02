@@ -35,7 +35,7 @@ public class PersonneController {
     }
 
     @PutMapping("{personId}/competences/{competenceId}")
-    public Personne ajouterCompetence(@PathVariable String personId, @PathVariable String competenceId, @RequestParam Integer niveau) {
-        return personneService.ajouterCompetence(personId, competenceId, niveau);
+    public Personne ajouterCompetenceOuModifier(@PathVariable String personId, @PathVariable String competenceId, @RequestParam Integer niveau) {
+        return personneService.ajouterOuModifierCompetence(personId, competenceId, niveau);
     }
 }

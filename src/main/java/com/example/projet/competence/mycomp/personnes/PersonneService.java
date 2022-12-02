@@ -11,5 +11,5 @@ public interface PersonneService {
 
     void deleteById(String id);
 
-    Personne ajouterCompetence(String personneId, String competenceId, Integer niveau);
+    Personne ajouterOuModifierCompetence(String personneId, String competenceId, Integer niveau);
 }
