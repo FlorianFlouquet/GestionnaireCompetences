@@ -1,5 +1,7 @@
 package com.example.projet.competence.mycomp.equipes;
 
+import com.example.projet.competence.mycomp.personnes.Personne;
+import com.example.projet.competence.mycomp.personnes.PersonneMinimalDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,5 +44,10 @@ public class EquipeController {
     @DeleteMapping("{idEquipe}/membres/{idMembre}")
     public void retirerMembre(@PathVariable String idEquipe, @PathVariable String idMembre) {
         equipeService.retirerMembre(idEquipe, idMembre);
+    }
+
+    @GetMapping("{id}/membres")
+    public List<PersonneMinimalDTO> chercherPersonnesPourUneEquipe(@PathVariable String id) {
+        return this.equipeService.chercherPersonnesPourUneEquipe(id);
     }
 }

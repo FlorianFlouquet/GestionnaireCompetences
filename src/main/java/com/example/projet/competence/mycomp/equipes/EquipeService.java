@@ -1,6 +1,8 @@
 package com.example.projet.competence.mycomp.equipes;
 
 import com.example.projet.competence.mycomp.equipes.Equipe;
+import com.example.projet.competence.mycomp.personnes.Personne;
+import com.example.projet.competence.mycomp.personnes.PersonneMinimalDTO;
 
 import java.util.List;
 
@@ -27,4 +29,6 @@ public interface EquipeService {
      * @param idMembre
      */
     void retirerMembre(String idEquipe, String idMembre);
+
+    List<PersonneMinimalDTO> chercherPersonnesPourUneEquipe(String id);
 }

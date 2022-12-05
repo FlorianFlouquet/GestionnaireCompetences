@@ -1,11 +1,14 @@
 package com.example.projet.competence.mycomp.equipes;
 
+import com.example.projet.competence.mycomp.personnes.NiveauCompetence;
 import com.example.projet.competence.mycomp.personnes.Personne;
+import com.example.projet.competence.mycomp.personnes.PersonneMinimalDTO;
 import com.example.projet.competence.mycomp.personnes.PersonneService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EquipeServiceImpl implements EquipeService {
@@ -62,5 +65,31 @@ public class EquipeServiceImpl implements EquipeService {
             equipe.getMembres().remove(membre);
         }
         this.save(equipe);
+    }
+
+    /**
+     * Récupère et affiche la liste des membres d'une équipes
+     * @param id
+     * @return
+     */
+    @Override
+    public List<PersonneMinimalDTO> chercherPersonnesPourUneEquipe(String id) {
+        Equipe equipe = this.findById(id);
+        List<PersonneMinimalDTO> personneList = new ArrayList<>();
+        for(Personne personne: equipe.getMembres()) {
+            NiveauCompetence competence = personne.getCompetences().get(0);
+            for(NiveauCompetence niveauCompetence : personne.getCompetences()) {
+                if(niveauCompetence.getNiveau() > competence.getNiveau()) {
+                    competence = niveauCompetence;
+                }
+            }
+            PersonneMinimalDTO personneMinimalDTO = new PersonneMinimalDTO();
+            personneMinimalDTO.setId(personne.getId());
+            personneMinimalDTO.setNom(personne.getNom());
+            personneMinimalDTO.setPrenom(personne.getPrenom());
+            personneMinimalDTO.setMeilleureCompetence(competence.getCompetence());
+            personneList.add(personneMinimalDTO);
+        }
+        return personneList;
     }
 }
